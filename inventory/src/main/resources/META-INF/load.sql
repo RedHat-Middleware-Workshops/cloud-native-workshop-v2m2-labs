@@ -1,7 +1,8 @@
-INSERT INTO INVENTORY(itemId, quantity) VALUES (329299, 35)
-INSERT INTO INVENTORY(itemId, quantity) VALUES (329199, 12)
-INSERT INTO INVENTORY(itemId, quantity) VALUES (165613, 45)
-INSERT INTO INVENTORY(itemId, quantity) VALUES (165614, 87)
-INSERT INTO INVENTORY(itemId, quantity) VALUES (165954, 43)
-INSERT INTO INVENTORY(itemId, quantity) VALUES (444434, 32)
-INSERT INTO INVENTORY(itemId, quantity) VALUES (444435, 53)
+insert into INVENTORY (itemId, link, location, quantity) values ('329299', 'http://maps.google.com/?q=Raleigh', 'Raleigh', 736);
+insert into INVENTORY (itemId, link, location, quantity) values ('329199', 'http://maps.google.com/?q=Raleigh', 'Raleigh', 512);
+insert into INVENTORY (itemId, link, location, quantity) values ('165613', 'http://maps.google.com/?q=Raleigh', 'Raleigh', 256);
+insert into INVENTORY (itemId, link, location, quantity) values ('165614', 'http://maps.google.com/?q=Raleigh', 'Raleigh', 54);
+insert into INVENTORY (itemId, link, location, quantity) values ('165954', 'http://maps.google.com/?q=Raleigh', 'Raleigh', 87);
+insert into INVENTORY (itemId, link, location, quantity) values ('444434', 'http://maps.google.com/?q=Raleigh', 'Raleigh', 443);
+insert into INVENTORY (itemId, link, location, quantity) values ('444435', 'http://maps.google.com/?q=Raleigh', 'Raleigh', 600);
+insert into INVENTORY (itemId, link, location, quantity) values ('444436', 'http://maps.google.com/?q=Seoul', 'Seoul', 230);
