@@ -1,3 +1,4 @@
+// Add Inventory data
 INSERT INTO INVENTORY (id, link, location, quantity) values (nextval('hibernate_sequence'), 'http://maps.google.com/?q=Raleigh', 'Raleigh', 736);
 INSERT INTO INVENTORY (id, link, location, quantity) values (nextval('hibernate_sequence'), 'http://maps.google.com/?q=Boston', 'Boston', 512);
 INSERT INTO INVENTORY (id, link, location, quantity) values (nextval('hibernate_sequence'), 'http://maps.google.com/?q=Seoul', 'Seoul', 256);
