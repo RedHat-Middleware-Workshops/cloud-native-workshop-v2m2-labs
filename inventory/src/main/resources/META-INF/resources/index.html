@@ -11,13 +11,26 @@
           href="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/css/patternfly-additions.min.css">
 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.6.1/jquery.timeago.min.js"></script>
     <!-- Load AngularJS -->
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <script type="text/javascript">
+
+      var lastFetch;
       var app = angular.module("InventoryManagement", []);
 
       //Controller Part
       app.controller("InventoryManagementController", function ($scope, $http) {
+
+        $(document).ready(function () {
+          jQuery("time.timeago").timeago();
+
+          _fetchInventory();
+
+          setInterval(function() {
+              _fetchInventory();
+          }, 2000);
+        })
 
         //Initialize page with default data which is blank in this example
         $scope.inventories = [];
@@ -38,7 +51,11 @@
             $scope.statusText = "OK";
             $scope.fetchAge = "moments ago";
             $scope.statusStyle = "color: green";
+            lastFetch = new Date().getTime();
           }, function errorCallback(response) {
+            $scope.statusText = "DEAD";
+            $scope.fetchAge = Math.floor(((new Date().getTime() - lastFetch) / 1000)) + "seconds ago";
+            $scope.statusStyle = "color: red";                    
             console.log(response.statusText);
           });
         }
@@ -52,17 +69,6 @@
         }
        
       });
-
-      $(document).ready(function () {
-        jQuery("time.timeago").timeago();
-
-        _fetchInventory();
-
-        setInterval(function() {
-            _fetchInventory();
-        }, 2000);
-
-      })
     </script>
 </head>
 <body ng-app="InventoryManagement" ng-controller="InventoryManagementController">
