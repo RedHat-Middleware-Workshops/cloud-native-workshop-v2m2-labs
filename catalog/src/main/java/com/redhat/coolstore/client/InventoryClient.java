@@ -9,11 +9,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import feign.hystrix.FallbackFactory;
+
 @FeignClient(name="inventory",fallbackFactory = InventoryClient.InventoryClientFallbackFactory.class)
 public interface InventoryClient {
 
     @RequestMapping(method = RequestMethod.GET, value = "/services/inventory/{itemId}", consumes = {MediaType.APPLICATION_JSON_VALUE})
-    Inventory getInventoryStatus(@PathVariable("itemId") String itemId);
+    String getInventoryStatus(@PathVariable("itemId") String itemId);
 
 //TODO: Add Fallback factory here
     @Component
@@ -22,8 +24,8 @@ public interface InventoryClient {
         public InventoryClient create(Throwable cause) {
             return new InventoryClient() {
                 @Override
-                public Inventory getInventoryStatus(@PathVariable("itemId") String itemId) {
-                    return new Inventory(itemId,-1);
+                public String getInventoryStatus(@PathVariable("itemId") String itemId) {
+                    return "-1";
                 }
             };
         }

@@ -1,7 +1,6 @@
 package com.redhat.coolstore.service;
 
-import com.redhat.coolstore.model.Order;
-import com.redhat.coolstore.utils.Transformers;
+import java.util.logging.Logger;
 
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
@@ -10,7 +9,9 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.TextMessage;
-import java.util.logging.Logger;
+
+import com.redhat.coolstore.model.Order;
+import com.redhat.coolstore.utils.Transformers;
 
 @MessageDriven(name = "InventoryNotificationMDB", activationConfig = {
         @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "topic/orders"),

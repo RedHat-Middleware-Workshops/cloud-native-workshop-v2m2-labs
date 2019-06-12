@@ -45,7 +45,7 @@
         function _fetchInventory() {
           $http({
             method: 'GET',
-            url: '/inventory'
+            url: '/services/inventory'
           }).then(function successCallback(response) {
             $scope.inventories = response.data;
             $scope.statusText = "OK";
@@ -99,7 +99,7 @@
                     <th>Location</th>
                 </tr>
                 <tr ng-repeat="inventory in inventories">
-                    <td>{{ inventory.id }}</td>
+                    <td>{{ inventory.itemId }}</td>
                     <td><strong>{{ inventory.quantity }}</strong></td> 
                     <td><a href="{{ inventory.link }}">{{ inventory.location }}</a></td>
                 </tr>

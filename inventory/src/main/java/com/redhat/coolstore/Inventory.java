@@ -10,7 +10,10 @@ import io.quarkus.hibernate.orm.panache.PanacheEntity;
 @Cacheable
 public class Inventory extends PanacheEntity {
 
-	@Column
+    @Column
+    public String itemId;
+
+    @Column
     public String location;
 
 	@Column
@@ -23,8 +26,9 @@ public class Inventory extends PanacheEntity {
 
     }
 
-    public Inventory(Long itemId, int quantity, String location, String link) {
+    public Inventory(String itemId, int quantity, String location, String link) {
         super();
+        this.itemId = itemId;
         this.quantity = quantity;
         this.location = location;
         this.link = link;
