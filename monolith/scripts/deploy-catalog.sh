@@ -14,11 +14,11 @@ echo Deploy Catalog service........
 
 oc project $USERXX-catalog
 
-rm -rf /projects/cloud-native-workshop-v2m3-labs/catalog/src/main/resources/application-default.properties
-cp /projects/cloud-native-workshop-v2m3-labs/istio/scripts/application-default.properties /projects/cloud-native-workshop-v2m3-labs/catalog/src/main/resources/
-sed -i "s/userXX/${USERXX}/g" /projects/cloud-native-workshop-v2m3-labs/catalog/src/main/resources/application-default.properties
+rm -rf /projects/cloud-native-workshop-v2m2-labs/catalog/src/main/resources/application-default.properties
+cp /projects/cloud-native-workshop-v2m2-labs/istio/scripts/application-default.properties /projects/cloud-native-workshop-v2m2-labs/catalog/src/main/resources/
+sed -i "s/userXX/${USERXX}/g" /projects/cloud-native-workshop-v2m2-labs/catalog/src/main/resources/application-default.properties
 
-cd /projects/cloud-native-workshop-v2m3-labs/catalog/
+cd /projects/cloud-native-workshop-v2m2-labs/catalog/
 
 oc new-app -e POSTGRESQL_USER=catalog \
              -e POSTGRESQL_PASSWORD=mysecretpassword \
