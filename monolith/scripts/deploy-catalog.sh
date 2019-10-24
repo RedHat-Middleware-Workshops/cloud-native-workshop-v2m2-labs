@@ -2,7 +2,7 @@
 
 USERXX=$1
 
-if [ -z $USERXX ]
+if [ -z "$USERXX" -o "$USERXX" = "userXX" ]
   then
     echo "Usage: Input your username like deploy-catalog.sh user1"
     exit;
@@ -12,7 +12,12 @@ echo Your username is $USERXX
 
 echo Deploy Catalog service........
 
-oc project $USERXX-catalog
+oc project $USERXX-catalog || oc new-project $USERXX-catalog
+
+oc delete dc,bc,build,svc,route,pod,is --all
+
+echo "Waiting 30 seconds to finialize deletion of resources..."
+sleep 30
 
 rm -rf /projects/cloud-native-workshop-v2m2-labs/catalog/src/main/resources/application-default.properties
 cp /projects/cloud-native-workshop-v2m2-labs/monolith/scripts/application-default.properties /projects/cloud-native-workshop-v2m2-labs/catalog/src/main/resources/
@@ -42,3 +47,9 @@ sleep 5
 
 REPLACEURL="$(oc get route -n $USERXX-catalog | grep catalog | awk '{print $2}')"
 sed -i "s/REPLACEURL/${REPLACEURL}/g" /projects/cloud-native-workshop-v2m2-labs/monolith/src/main/webapp/app/services/catalog.js
+
+clear
+echo "Done! Verify by accessing in your browser:"
+echo
+echo "http://$(oc get route catalog-springboot -o=go-template --template='{{ .spec.host }}')"
+echo
