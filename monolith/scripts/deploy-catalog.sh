@@ -14,8 +14,6 @@ echo Deploy Catalog service........
 
 oc project $USERXX-catalog
 
-rm -rf /projects/cloud-native-workshop-v2m2-labs/catalog/src/main/resources/application-default.properties
-cp /projects/cloud-native-workshop-v2m2-labs/istio/scripts/application-default.properties /projects/cloud-native-workshop-v2m2-labs/catalog/src/main/resources/
 sed -i "s/userXX/${USERXX}/g" /projects/cloud-native-workshop-v2m2-labs/catalog/src/main/resources/application-default.properties
 
 cd /projects/cloud-native-workshop-v2m2-labs/catalog/
