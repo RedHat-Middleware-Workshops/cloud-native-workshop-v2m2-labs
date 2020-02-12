@@ -15,6 +15,7 @@ echo Deploy Catalog service........
 oc project $USERXX-catalog
 
 sed -i "s/userXX/${USERXX}/g" /projects/cloud-native-workshop-v2m2-labs/catalog/src/main/resources/application-default.properties
+sed -i "s/userXX/${USERXX}/g" /projects/cloud-native-workshop-v2m2-labs/catalog/src/main/resources/application-openshift.properties
 
 cd /projects/cloud-native-workshop-v2m2-labs/catalog/
 
@@ -24,7 +25,7 @@ oc new-app -e POSTGRESQL_USER=catalog \
              openshift/postgresql:10 \
              --name=catalog-database
              
-mvn clean package spring-boot:repackage -DskipTests
+mvn clean package install spring-boot:repackage -DskipTests
 
 oc new-build registry.access.redhat.com/redhat-openjdk-18/openjdk18-openshift:1.5 --binary --name=catalog-springboot -l app=catalog-springboot
 sleep 5
@@ -32,7 +33,7 @@ sleep 5
 oc start-build catalog-springboot --from-file=target/catalog-1.0.0-SNAPSHOT.jar --follow
 sleep 5
 
-oc new-app catalog-springboot
+oc new-app catalog-springboot -e JAVA_OPTS_APPEND='-Dspring.profiles.active=openshift'
 sleep 5
 
 oc expose service catalog-springboot

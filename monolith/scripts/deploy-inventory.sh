@@ -10,7 +10,7 @@ fi
 
 echo Your username is $USERXX
 
-echo Deploy Inveoc projntory service........
+echo Deploy Inventory service........
 
 oc project $USERXX-inventory
 
