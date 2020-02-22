@@ -28,16 +28,16 @@ oc new-app -e POSTGRESQL_USER=catalog \
 mvn clean package install spring-boot:repackage -DskipTests
 
 oc new-build registry.access.redhat.com/redhat-openjdk-18/openjdk18-openshift:1.5 --binary --name=catalog-springboot -l app=catalog-springboot
-sleep 5
+
+if [ ! -z $DELAY ]
+  then 
+    echo Delay is $DELAY
+    sleep $DELAY
+fi
 
 oc start-build catalog-springboot --from-file=target/catalog-1.0.0-SNAPSHOT.jar --follow
-sleep 5
-
 oc new-app catalog-springboot -e JAVA_OPTS_APPEND='-Dspring.profiles.active=openshift'
-sleep 5
-
 oc expose service catalog-springboot
-sleep 5
 
 REPLACEURL="$(oc get route -n $USERXX-catalog | grep catalog | awk '{print $2}')"
 sed -i "s/REPLACEURL/${REPLACEURL}/g" /projects/cloud-native-workshop-v2m2-labs/monolith/src/main/webapp/app/services/catalog.js
