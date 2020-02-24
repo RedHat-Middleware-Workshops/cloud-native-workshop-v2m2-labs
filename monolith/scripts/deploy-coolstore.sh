@@ -2,7 +2,7 @@
 
 USERXX=$1
 
-if [ -z $USERXX ]
+if [ -z "$USERXX" -o "$USERXX" = "userXX" ]
   then
     echo "Usage: Input your username like deploy-boolstore.sh user1"
     exit;
