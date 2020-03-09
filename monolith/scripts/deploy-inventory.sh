@@ -15,23 +15,21 @@ echo Deploy Inventory service........
 
 oc project $USERXX-inventory
 
-cd /projects/cloud-native-workshop-v2m2-labs/inventory/
-
-mvn clean package -DskipTests
+mvn clean package -DskipTests -f $CHE_PROJECTS_ROOT/cloud-native-workshop-v2m2-labs/inventory/
 
 oc new-app -e POSTGRESQL_USER=inventory \
   -e POSTGRESQL_PASSWORD=mysecretpassword \
-  -e POSTGRESQL_DATABASE=inventory openshift/postgresql:10 \
+  -e POSTGRESQL_DATABASE=inventory openshift/postgresql:latest \
   --name=inventory-database
-  
+
 oc new-build registry.access.redhat.com/redhat-openjdk-18/openjdk18-openshift:1.5 --binary --name=inventory-quarkus -l app=inventory-quarkus
 
 if [ ! -z $DELAY ]
-  then 
+  then
     echo Delay is $DELAY
     sleep $DELAY
 fi
 
-oc start-build inventory-quarkus --from-file target/*-runner.jar --follow
+oc start-build inventory-quarkus --from-file $CHE_PROJECTS_ROOT/cloud-native-workshop-v2m2-labs/inventory/target/*-runner.jar --follow
 oc new-app inventory-quarkus -e QUARKUS_PROFILE=prod
 oc expose service inventory-quarkus

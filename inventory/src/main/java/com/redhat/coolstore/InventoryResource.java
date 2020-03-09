@@ -23,6 +23,17 @@ import org.jboss.resteasy.annotations.jaxrs.PathParam;
 public class InventoryResource {
 
     @GET
+    @Path("/lastletter/{itemId}")
+    @Produces("application/text-plain")
+    public String lastLetter(@PathParam("itemId") String itemId) {
+        Inventory item = Inventory.find("itemId", itemId).firstResult();
+        String location = item.location;
+        int len = location.length();
+        String lastLetter = location.substring(len - 1);
+        return lastLetter;
+    }
+
+    @GET
     public List<Inventory> getAll() {
         return Inventory.listAll();
     }
