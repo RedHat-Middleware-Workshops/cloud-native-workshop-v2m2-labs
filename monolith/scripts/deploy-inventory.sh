@@ -13,7 +13,11 @@ echo Your username is $USERXX
 
 echo Deploy Inventory service........
 
-oc project $USERXX-inventory
+oc project $USERXX-inventory || oc new-project $USERXX-inventory
+oc delete dc,deployment,bc,build,svc,route,pod,is --all
+
+echo "Waiting 30 seconds to finialize deletion of resources..."
+sleep 30
 
 mvn clean package -DskipTests -f $CHE_PROJECTS_ROOT/cloud-native-workshop-v2m2-labs/inventory/
 

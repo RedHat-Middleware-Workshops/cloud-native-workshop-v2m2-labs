@@ -12,7 +12,11 @@ echo Your username is $USERXX
 
 echo Deploy Catalog service........
 
-oc project $USERXX-catalog
+oc project $USERXX-catalog || oc new-project $USERXX-catalog
+oc delete dc,deployment,bc,build,svc,route,pod,is --all
+
+echo "Waiting 30 seconds to finialize deletion of resources..."
+sleep 30
 
 sed -i "s/userXX/${USERXX}/g" /projects/cloud-native-workshop-v2m2-labs/catalog/src/main/resources/application-openshift.properties
 
