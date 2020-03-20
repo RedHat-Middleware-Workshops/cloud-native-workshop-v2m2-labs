@@ -36,5 +36,5 @@ oc start-build catalog-springboot --from-file $CHE_PROJECTS_ROOT/cloud-native-wo
 oc new-app catalog-springboot -e JAVA_OPTS_APPEND='-Dspring.profiles.active=openshift'
 oc expose service catalog-springboot
 
-REPLACEURL="$(oc get route -n $USERXX-catalog | grep catalog | awk '{print $2}')"
+REPLACEURL=$(oc get route -n $USERXX-catalog catalog-springboot -o jsonpath="{.spec.host}")
 sed -i "s/REPLACEURL/${REPLACEURL}/g" /projects/cloud-native-workshop-v2m2-labs/monolith/src/main/webapp/app/services/catalog.js
