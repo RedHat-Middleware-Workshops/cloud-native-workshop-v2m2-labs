@@ -12,7 +12,11 @@ echo Your username is $USERXX
 
 echo Deploy Catalog service........
 
-oc project $USERXX-catalog
+oc project $USERXX-catalog || oc new-project $USERXX-catalog
+oc delete dc,deployment,bc,build,svc,route,pod,is --all
+
+echo "Waiting 30 seconds to finialize deletion of resources..."
+sleep 30
 
 sed -i "s/userXX/${USERXX}/g" /projects/cloud-native-workshop-v2m2-labs/catalog/src/main/resources/application-openshift.properties
 
@@ -24,7 +28,7 @@ oc new-app -e POSTGRESQL_USER=catalog \
 
 mvn clean package install spring-boot:repackage -DskipTests -f $CHE_PROJECTS_ROOT/cloud-native-workshop-v2m2-labs/catalog/
 
-oc new-build registry.access.redhat.com/redhat-openjdk-18/openjdk18-openshift:1.5 --binary --name=catalog-springboot -l app=catalog-springboot
+oc new-build java:8 --binary --name=catalog-springboot -l app=catalog-springboot
 
 if [ ! -z $DELAY ]
   then

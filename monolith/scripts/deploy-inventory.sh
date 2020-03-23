@@ -13,7 +13,11 @@ echo Your username is $USERXX
 
 echo Deploy Inventory service........
 
-oc project $USERXX-inventory
+oc project $USERXX-inventory || oc new-project $USERXX-inventory
+oc delete dc,deployment,bc,build,svc,route,pod,is --all
+
+echo "Waiting 30 seconds to finialize deletion of resources..."
+sleep 30
 
 mvn clean package -DskipTests -f $CHE_PROJECTS_ROOT/cloud-native-workshop-v2m2-labs/inventory/
 
@@ -22,7 +26,7 @@ oc new-app -e POSTGRESQL_USER=inventory \
   -e POSTGRESQL_DATABASE=inventory openshift/postgresql:latest \
   --name=inventory-database
 
-oc new-build registry.access.redhat.com/redhat-openjdk-18/openjdk18-openshift:1.5 --binary --name=inventory-quarkus -l app=inventory-quarkus
+oc new-build java:8 --binary --name=inventory-quarkus -l app=inventory-quarkus
 
 if [ ! -z $DELAY ]
   then

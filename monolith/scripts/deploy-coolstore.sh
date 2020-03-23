@@ -12,7 +12,12 @@ echo Your username is $USERXX
 
 echo Deploy coolstore project........
 
-oc new-project $USERXX-coolstore-dev
+oc project $USERXX-coolstore-dev || oc new-project $USERXX-coolstore-dev
+oc delete dc,deployment,bc,build,svc,route,pod,is --all
+
+echo "Waiting 30 seconds to finialize deletion of resources..."
+sleep 30
+
 oc new-app coolstore-monolith-binary-build -p USER_ID=$USERXX
 
 mvn clean package -Popenshift -f $CHE_PROJECTS_ROOT/cloud-native-workshop-v2m2-labs/monolith/
