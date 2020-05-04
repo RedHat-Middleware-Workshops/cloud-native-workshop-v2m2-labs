@@ -22,3 +22,11 @@ oc new-app coolstore-monolith-binary-build -p USER_ID=$USERXX
 
 mvn clean package -Popenshift -f $CHE_PROJECTS_ROOT/cloud-native-workshop-v2m2-labs/monolith/
 oc start-build coolstore --from-file $CHE_PROJECTS_ROOT/cloud-native-workshop-v2m2-labs/monolith/deployments/ROOT.war
+
+oc label dc/coolstore-postgresql app.openshift.io/runtime=postgresql --overwrite && \
+oc label dc/coolstore app.openshift.io/runtime=jboss --overwrite && \
+oc label dc/coolstore-postgresql app.kubernetes.io/part-of=coolstore --overwrite && \
+oc label dc/coolstore app.kubernetes.io/part-of=coolstore --overwrite && \
+oc annotate dc/coolstore app.openshift.io/connects-to=coolstore-postgresql --overwrite && \
+oc annotate dc/coolstore app.openshift.io/vcs-uri=https://github.com/RedHat-Middleware-Workshops/cloud-native-workshop-v2m1-labs.git --overwrite && \
+oc annotate dc/coolstore app.openshift.io/vcs-ref=ocp-4.4 --overwrite
