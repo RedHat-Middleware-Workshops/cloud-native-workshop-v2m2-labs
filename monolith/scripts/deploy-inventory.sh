@@ -24,7 +24,7 @@ oc new-app -e POSTGRESQL_USER=inventory \
   -e POSTGRESQL_DATABASE=inventory openshift/postgresql:latest \
   --name=inventory-database
 
-mvn clean package -DskipTests -f $CHE_PROJECTS_ROOT/cloud-native-workshop-v2m1-labs/inventory
+mvn clean package -DskipTests -f $CHE_PROJECTS_ROOT/cloud-native-workshop-v2m2-labs/inventory
 
 oc label dc/inventory-database app.openshift.io/runtime=postgresql --overwrite && \
 oc label dc/inventory app.kubernetes.io/part-of=inventory --overwrite && \
