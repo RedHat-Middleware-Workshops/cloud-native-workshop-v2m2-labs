@@ -1,6 +1,7 @@
 #!/bin/bash
 
 USERXX=$1
+DELAY=$2
 
 if [ -z $USERXX ]
   then
