@@ -44,17 +44,10 @@ oc expose service catalog-springboot
 REPLACEURL=$(oc get route -n $USERXX-catalog catalog-springboot -o jsonpath="{.spec.host}")
 sed -i "s/REPLACEURL/${REPLACEURL}/g" /projects/cloud-native-workshop-v2m2-labs/monolith/src/main/webapp/app/services/catalog.js
 
-oc label deployment/catalog-database app.openshift.io/runtime=postgresql --overwrite && \
-oc label deployment/catalog-springboot app.openshift.io/runtime=spring --overwrite && \
-oc label deployment/catalog-springboot app.kubernetes.io/part-of=catalog --overwrite && \
-<<<<<<< HEAD
+oc label dc/catalog-database app.openshift.io/runtime=postgresql --overwrite && \
+oc label dc/catalog-springboot app.openshift.io/runtime=spring --overwrite && \
+oc label dc/catalog-springboot app.kubernetes.io/part-of=catalog --overwrite && \
 oc label dc/catalog-database app.kubernetes.io/part-of=catalog --overwrite && \
 oc annotate dc/catalog-springboot app.openshift.io/connects-to=catalog-database --overwrite && \
 oc annotate dc/catalog-springboot app.openshift.io/vcs-uri=https://github.com/RedHat-Middleware-Workshops/cloud-native-workshop-v2m2-labs.git --overwrite && \
 oc annotate dc/catalog-springboot app.openshift.io/vcs-ref=ocp-4.4 --overwrite
-=======
-oc label deployment/catalog-database app.kubernetes.io/part-of=catalog --overwrite && \
-oc annotate deployment/catalog-springboot app.openshift.io/connects-to=catalog-database --overwrite && \
-oc annotate deployment/catalog-springboot app.openshift.io/vcs-uri=https://github.com/RedHat-Middleware-Workshops/cloud-native-workshop-v2m2-labs.git --overwrite && \
-oc annotate deployment/catalog-springboot app.openshift.io/vcs-ref=ocp-4.4 --overwrite
->>>>>>> 49cbdbfbbc7ebd22965313a503b6d3ddf441148d
