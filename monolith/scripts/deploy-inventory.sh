@@ -26,9 +26,9 @@ oc new-app -e POSTGRESQL_USER=inventory \
 
 mvn clean package -DskipTests -f $CHE_PROJECTS_ROOT/cloud-native-workshop-v2m2-labs/inventory
 
-oc label dc/inventory-database app.openshift.io/runtime=postgresql --overwrite && \
+oc label deployment/inventory-database app.openshift.io/runtime=postgresql --overwrite && \
 oc label dc/inventory app.kubernetes.io/part-of=inventory --overwrite && \
-oc label dc/inventory-database app.kubernetes.io/part-of=inventory --overwrite && \
+oc label deployment/inventory-database app.kubernetes.io/part-of=inventory --overwrite && \
 oc annotate dc/inventory app.openshift.io/connects-to=inventory-database --overwrite && \
 oc annotate dc/inventory app.openshift.io/vcs-uri=https://github.com/RedHat-Middleware-Workshops/cloud-native-workshop-v2m2-labs.git --overwrite && \
 oc annotate dc/inventory app.openshift.io/vcs-ref=ocp-4.4 --overwrite
