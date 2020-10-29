@@ -18,7 +18,7 @@ oc delete dc,deployment,bc,build,svc,route,pod,is --all
 echo "Waiting 30 seconds to finialize deletion of resources..."
 sleep 30
 
-oc new-app coolstore-monolith-binary-build --as-deployment-config -p USER_ID=$USERXX
+oc new-app coolstore-monolith-binary-build -p USER_ID=$USERXX
 
 mvn clean package -Popenshift -f $CHE_PROJECTS_ROOT/cloud-native-workshop-v2m2-labs/monolith/
 oc start-build coolstore --from-file $CHE_PROJECTS_ROOT/cloud-native-workshop-v2m2-labs/monolith/deployments/ROOT.war
