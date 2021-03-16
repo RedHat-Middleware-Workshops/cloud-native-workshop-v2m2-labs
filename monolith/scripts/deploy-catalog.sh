@@ -19,7 +19,7 @@ oc delete dc,deployment,bc,build,svc,route,pod,is --all
 echo "Waiting 30 seconds to finialize deletion of resources..."
 sleep 30
 
-sed -i "s/userXX/${USERXX}/g" /projects/cloud-native-workshop-v2m2-labs/catalog/src/main/resources/application-openshift.properties
+sed -i "s/userXX/${USERXX}/g" $CHE_PROJECTS_ROOT/cloud-native-workshop-v2m2-labs/catalog/src/main/resources/application-openshift.properties
 
 oc new-app --as-deployment-config -e POSTGRESQL_USER=catalog \
              -e POSTGRESQL_PASSWORD=mysecretpassword \
@@ -42,7 +42,7 @@ oc new-app catalog-springboot  --as-deployment-config -e JAVA_OPTS_APPEND='-Dspr
 oc expose service catalog-springboot
 
 REPLACEURL=$(oc get route -n $USERXX-catalog catalog-springboot -o jsonpath="{.spec.host}")
-sed -i "s/REPLACEURL/${REPLACEURL}/g" /projects/cloud-native-workshop-v2m2-labs/monolith/src/main/webapp/app/services/catalog.js
+sed -i "s/REPLACEURL/${REPLACEURL}/g" $CHE_PROJECTS_ROOT/cloud-native-workshop-v2m2-labs/monolith/src/main/webapp/app/services/catalog.js
 
 oc label dc/catalog-database app.openshift.io/runtime=postgresql --overwrite && \
 oc label dc/catalog-springboot app.openshift.io/runtime=spring --overwrite && \
