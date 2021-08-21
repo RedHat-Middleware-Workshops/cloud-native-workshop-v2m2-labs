@@ -21,7 +21,7 @@ sleep 30
 
 oc new-app --as-deployment-config -e POSTGRESQL_USER=inventory \
   -e POSTGRESQL_PASSWORD=mysecretpassword \
-  -e POSTGRESQL_DATABASE=inventory openshift/postgresql:latest \
+  -e POSTGRESQL_DATABASE=inventory openshift/postgresql:10-el8 \
   --name=inventory-database
 
 mvn clean package -DskipTests -f $CHE_PROJECTS_ROOT/cloud-native-workshop-v2m2-labs/inventory

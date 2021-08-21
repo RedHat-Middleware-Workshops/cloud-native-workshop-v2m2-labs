@@ -24,7 +24,7 @@ sed -i "s/userXX/${USERXX}/g" $CHE_PROJECTS_ROOT/cloud-native-workshop-v2m2-labs
 oc new-app --as-deployment-config -e POSTGRESQL_USER=catalog \
              -e POSTGRESQL_PASSWORD=mysecretpassword \
              -e POSTGRESQL_DATABASE=catalog \
-             openshift/postgresql:latest \
+             openshift/postgresql:10-el8 \
              --name=catalog-database
 
 mvn clean package install spring-boot:repackage -DskipTests -f $CHE_PROJECTS_ROOT/cloud-native-workshop-v2m2-labs/catalog/
