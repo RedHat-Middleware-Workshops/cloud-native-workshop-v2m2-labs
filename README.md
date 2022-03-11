@@ -9,3 +9,5 @@ The included Java projects and/or installation files are here:
 * Inventory - Quarkus project
 * Monolith - JBoss EAP project
 * Monitoring - Multiple monitoring tools such as Prometheus, Grafana, Jaeger
+
+OpenShift version - 4.10
