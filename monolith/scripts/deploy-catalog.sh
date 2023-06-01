@@ -27,13 +27,13 @@ oc new-app --as-deployment-config -e POSTGRESQL_USER=catalog \
              openshift/postgresql:10-el8 \
              --name=catalog-database
 
-mvn clean package -Ddekorate.deploy=true
+mvn clean install -Ddekorate.deploy=true -DskipTests -f $PROJECT_SOURCE/catalog
 
 REPLACEURL=$(oc get route -n $USERXX-catalog catalog-springboot -o jsonpath="{.spec.host}")
 sed -i "s/REPLACEURL/${REPLACEURL}/g" $PROJECT_SOURCE/monolith/src/main/webapp/app/services/catalog.js
 
 oc label dc/catalog-database app.openshift.io/runtime=postgresql --overwrite && \
-oc label dc/catalog-springboot app.openshift.io/runtime=spring --overwrite && \
+oc label dc/catalog-springboot app.openshift.io/runtime=spring-boot --overwrite && \
 oc label dc/catalog-springboot app.kubernetes.io/part-of=catalog --overwrite && \
 oc label dc/catalog-database app.kubernetes.io/part-of=catalog --overwrite && \
 oc annotate dc/catalog-springboot app.openshift.io/connects-to=catalog-database --overwrite && \
