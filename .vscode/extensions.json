@@ -5,6 +5,6 @@
       "redhat.vscode-quarkus",
       "redhat.vscode-yaml",
       "redhat.vscode-openshift-connector",
-      "redhat.mta-vscode-extension"
+      "redhat.windup-vscode-extension"
     ]
 }
