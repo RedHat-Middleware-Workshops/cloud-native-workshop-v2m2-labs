@@ -19,7 +19,7 @@ oc delete dc,deployment,bc,build,svc,route,pod,is --all
 echo "Waiting 30 seconds to finialize deletion of resources..."
 sleep 30
 
-sed -i "s/userXX/${USERXX}/g" $PROJECT_SOURCE/catalog/src/main/resources/application-openshift.properties
+sed -i "s/userXX/${USERXX}/g" $PROJECT_SOURCE/catalog/src/main/resources/application.properties
 
 oc new-app --as-deployment-config -e POSTGRESQL_USER=catalog \
              -e POSTGRESQL_PASSWORD=mysecretpassword \
