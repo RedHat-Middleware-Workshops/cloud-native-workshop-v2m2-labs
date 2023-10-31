@@ -10,4 +10,4 @@ The included Java projects and/or installation files are here:
 * Monolith - JBoss EAP project
 * Monitoring - Multiple monitoring tools such as Prometheus, Grafana, Jaeger
 
-OpenShift version - 4.10
+OpenShift version - 4.14

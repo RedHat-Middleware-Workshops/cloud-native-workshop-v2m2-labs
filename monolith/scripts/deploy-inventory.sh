@@ -31,4 +31,4 @@ oc label dc/inventory app.kubernetes.io/part-of=inventory --overwrite && \
 oc label dc/inventory-database app.kubernetes.io/part-of=inventory --overwrite && \
 oc annotate dc/inventory app.openshift.io/connects-to=inventory-database --overwrite && \
 oc annotate dc/inventory app.openshift.io/vcs-uri=https://github.com/RedHat-Middleware-Workshops/cloud-native-workshop-v2m2-labs.git --overwrite && \
-oc annotate dc/inventory app.openshift.io/vcs-ref=ocp-4.13 --overwrite
+oc annotate dc/inventory app.openshift.io/vcs-ref=ocp-4.14 --overwrite
