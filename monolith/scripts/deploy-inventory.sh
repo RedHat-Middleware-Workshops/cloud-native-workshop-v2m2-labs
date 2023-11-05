@@ -24,6 +24,8 @@ oc new-app -e POSTGRESQL_USER=inventory \
   -e POSTGRESQL_DATABASE=inventory registry.redhat.io/rhel9/postgresql-15 \
   --name=inventory-database
 
+sed -i "s/USERXX/${USERXX}/g" $PROJECT_SOURCE/inventory/src/main/resources/application.properties
+
 mvn clean package -DskipTests -f $PROJECT_SOURCE/inventory
 
 oc label deployment/inventory-database app.openshift.io/runtime=postgresql --overwrite && \
